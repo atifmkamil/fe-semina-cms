@@ -34,7 +34,7 @@ function SNavbar() {
   return (
     <Navbar bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand href="#home">Dashboard</Navbar.Brand>
+        <Navbar.Brand>Semina</Navbar.Brand>
         <Nav className="me-auto">
           <NavLink
             role={role}
