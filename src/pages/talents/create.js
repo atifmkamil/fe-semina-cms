@@ -116,7 +116,7 @@ function TalentsCreate() {
     <Container>
       <SBreadCrumb
         textSecond={"Talents"}
-        urlSecound={"/talents"}
+        urlSecond={"/talents"}
         textThird="Create"
       />
       {alert.status && <SAlert type={alert.type} message={alert.message} />}

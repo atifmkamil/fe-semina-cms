@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import SBreadCrumb from "../../components/Breadcrumb";
 import SAlert from "../../components/Alert";
 import Form from "./form";
-import { getData, postData, putData } from "../../utils/fetch";
-import { useNavigate, useParams } from "react-router-dom";
+import { postData } from "../../utils/fetch";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setNotif } from "../../redux/notif/actions";
 
-function TalentsEdit() {
+function PaymentsCreate() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  const { talentsId } = useParams();
-
   const [form, setForm] = useState({
-    name: "",
-    role: "",
+    type: "",
     file: "",
     avatar: "",
   });
@@ -28,22 +24,6 @@ function TalentsEdit() {
   });
 
   const [isLoading, setIsLoading] = useState(false);
-
-  const fetchOneTalents = async () => {
-    const res = await getData(`/cms/talents/${talentsId}`);
-
-    setForm({
-      ...form,
-      name: res.data.data.name,
-      role: res.data.data.role,
-      avatar: res.data.data.image.name,
-      file: res.data.data.image._id,
-    });
-  };
-
-  useEffect(() => {
-    fetchOneTalents();
-  }, []);
 
   const uploadImage = async (file) => {
     let formData = new FormData();
@@ -105,20 +85,19 @@ function TalentsEdit() {
 
     const payload = {
       image: form.file,
-      role: form.role,
-      name: form.name,
+      type: form.type,
     };
 
-    const res = await putData(`/cms/talents/${talentsId}`, payload);
+    const res = await postData("/cms/payments", payload);
     if (res.data.data) {
       dispatch(
         setNotif(
           true,
           "success",
-          `berhasil tambah talents ${res.data.data.name}`,
+          `berhasil tambah payments ${res.data.data.type}`,
         ),
       );
-      navigate("/talents");
+      navigate("/payments");
       setIsLoading(false);
     } else {
       setIsLoading(false);
@@ -134,9 +113,9 @@ function TalentsEdit() {
   return (
     <Container>
       <SBreadCrumb
-        textSecond={"Talents"}
-        urlSecond={"/talents"}
-        textThird="Edit"
+        textSecond={"Payments"}
+        urlSecond={"/payments"}
+        textThird="Create"
       />
       {alert.status && <SAlert type={alert.type} message={alert.message} />}
       <Form
@@ -144,10 +123,9 @@ function TalentsEdit() {
         isLoading={isLoading}
         handleChange={handleChange}
         handleSubmit={handleSubmit}
-        edit
       />
     </Container>
   );
 }
 
-export default TalentsEdit;
+export default PaymentsCreate;

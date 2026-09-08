@@ -4,7 +4,7 @@ import SButton from "../../components/Button";
 import TextInputWithLabel from "../../components/TextInputWithLabel";
 import { config } from "../../configs";
 
-export default function TalentsForm({
+export default function PaymentsForm({
   handleChange,
   form,
   handleSubmit,
@@ -14,20 +14,12 @@ export default function TalentsForm({
   return (
     <Form>
       <TextInputWithLabel
-        label={"Nama Talents"}
-        value={form.name}
-        placeholder={"Masukkan Nama Talents"}
+        label={"Nama Payments"}
+        value={form.type}
+        placeholder={"Masukkan Nama Payments"}
         onChange={handleChange}
         type="text"
-        name="name"
-      />
-      <TextInputWithLabel
-        label={"Nama Role"}
-        value={form.role}
-        placeholder={"Masukkan Nama Role"}
-        onChange={handleChange}
-        type="text"
-        name="role"
+        name="type"
       />
       <TextInputWithLabel
         placeholder={"Masukan Avatar"}

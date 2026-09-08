@@ -8,15 +8,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setNotif } from "../../redux/notif/actions";
 
-function TalentsEdit() {
+function PaymentsEdit() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { talentsId } = useParams();
+  const { paymentsId } = useParams();
 
   const [form, setForm] = useState({
-    name: "",
-    role: "",
+    type: "",
     file: "",
     avatar: "",
   });
@@ -29,20 +28,19 @@ function TalentsEdit() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchOneTalents = async () => {
-    const res = await getData(`/cms/talents/${talentsId}`);
+  const fetchOnePayments = async () => {
+    const res = await getData(`/cms/payments/${paymentsId}`);
 
     setForm({
       ...form,
-      name: res.data.data.name,
-      role: res.data.data.role,
+      type: res.data.data.type,
       avatar: res.data.data.image.name,
       file: res.data.data.image._id,
     });
   };
 
   useEffect(() => {
-    fetchOneTalents();
+    fetchOnePayments();
   }, []);
 
   const uploadImage = async (file) => {
@@ -94,9 +92,13 @@ function TalentsEdit() {
           file: "",
           [e.target.name]: "",
         });
+        console.log("form");
+        console.log(form);
       }
     } else {
       setForm({ ...form, [e.target.name]: e.target.value });
+      console.log("form");
+      console.log(form);
     }
   };
 
@@ -105,20 +107,19 @@ function TalentsEdit() {
 
     const payload = {
       image: form.file,
-      role: form.role,
-      name: form.name,
+      type: form.type,
     };
 
-    const res = await putData(`/cms/talents/${talentsId}`, payload);
+    const res = await putData(`/cms/payments/${paymentsId}`, payload);
     if (res.data.data) {
       dispatch(
         setNotif(
           true,
           "success",
-          `berhasil tambah talents ${res.data.data.name}`,
+          `berhasil tambah payments ${res.data.data.type}`,
         ),
       );
-      navigate("/talents");
+      navigate("/payments");
       setIsLoading(false);
     } else {
       setIsLoading(false);
@@ -134,8 +135,8 @@ function TalentsEdit() {
   return (
     <Container>
       <SBreadCrumb
-        textSecond={"Talents"}
-        urlSecond={"/talents"}
+        textSecond={"Payments"}
+        urlSecond={"/payments"}
         textThird="Edit"
       />
       {alert.status && <SAlert type={alert.type} message={alert.message} />}
@@ -150,4 +151,4 @@ function TalentsEdit() {
   );
 }
 
-export default TalentsEdit;
+export default PaymentsEdit;
