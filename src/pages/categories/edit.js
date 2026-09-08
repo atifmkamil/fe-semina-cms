@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setNotif } from "../../redux/notif/actions";
 
-function CategoryCreate() {
+function CategoryEdit() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { categoryId } = useParams();
@@ -80,4 +80,4 @@ function CategoryCreate() {
   );
 }
 
-export default CategoryCreate;
+export default CategoryEdit;
