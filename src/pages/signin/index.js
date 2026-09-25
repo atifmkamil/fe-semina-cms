@@ -39,6 +39,7 @@ function PageSignin() {
           res.data.data.token,
           res.data.data.role,
           res.data.data.refreshToken,
+          res.data.data.email,
         ),
       );
       setIsLoading(false);
